@@ -3,8 +3,7 @@
 
 #include <string.h>
 
-/** 
- * MenuItem represents an entry in a menu. Each menu item is instantiated with
+/** MenuItem represents an entry in a menu. Each menu item is instantiated with
  * two callbacks, one for selecting the item and one for entering the item.
  * Methods are provided for determining whether the item is selected and
  * retrieving the row number set by the containing menu.
@@ -19,8 +18,7 @@ private:
 public:
     typedef void (*SelectionChange)(MenuItem*);
     
-    /**
-     * Constructs a new MenuItem object. The constructor takes two function pointers as
+    /** Constructs a new MenuItem object. The constructor takes two function pointers as
      * arguments both of which must take a single argument of a MenuItem pointer.
      *
      * Example:
@@ -34,30 +32,25 @@ public:
      */
     MenuItem(EnterMenuItem, SelectionChange, char*);
     
-    /**
-     * Gets the name of the item.
+    /** Gets the name of the item.
      * @return A char array containing the item name.
      */
     char* getName();
     
-    /**
-     * Enters this instance of MenuItem and ultimatley calls the entered callback function.
+    /** Enters this instance of MenuItem and ultimatley calls the entered callback function.
      */
     virtual void enter();
     
-    /**
-     * Determines wheter tgis instance is selected.
+    /** Determines wheter tgis instance is selected.
      * @return true if selected.
      */
     bool isSelected();
     
-    /**
-     * Selects this instance of MenuItem in its containing Menu and called the selected call back function.
+    /** Selects this instance of MenuItem in its containing Menu and called the selected call back function.
      */
     void select();
     
-    /**
-     * De-selectes this instance - this is called internally by Menu DO NOT CALL THIS.
+    /** De-selectes this instance - this is called internally by Menu DO NOT CALL THIS.
      */
     void deSelect();
 protected:
@@ -66,8 +59,7 @@ protected:
     MenuItem();
 };
 
-/**
- * Menu represents a container for a set of MenuItems. Menu is itself
+/** Menu represents a container for a set of MenuItems. Menu is itself
  * a menu item meaning that Menu objects can be used as sun menus. 
  */
 class Menu : public MenuItem {
