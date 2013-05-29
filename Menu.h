@@ -2,10 +2,12 @@
 #define MENU_H
 
 #include <string.h>
-/** MenuItem represents an entry in a menu. Each menu item is instantiated with
+
+/** 
+ * MenuItem represents an entry in a menu. Each menu item is instantiated with
  * two callbacks, one for selecting the item and one for entering the item.
- * Methods are provided for determining whether the item is selected 
- *
+ * Methods are provided for determining whether the item is selected and
+ * retrieving the row number set by the containing menu.
  */
 class MenuItem {
 
@@ -16,7 +18,6 @@ private:
     int row;
 public:
     typedef void (*SelectionChange)(MenuItem*);
-    MenuItem();
     MenuItem(EnterMenuItem, SelectionChange, char*);
     char* getName();
     virtual void enter();
@@ -28,8 +29,13 @@ public:
 protected:
     char* name;
     void (*selection)(MenuItem*);
+    MenuItem();
 };
 
+/**
+ * Menu represents a container for a set of MenuItems. Menu is itself
+ * a menu item meaning that Menu objects can be used as sun menus. 
+ */
 class Menu : public MenuItem {
 
 private:
