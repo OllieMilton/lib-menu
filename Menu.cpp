@@ -23,13 +23,15 @@ Menu::Menu(char* newName, int size) {
 }
 
 void Menu::addMenuItem(MenuItem & item) {
-    item.setRowNo(itemCount);
     items[itemCount] = &item;
     itemCount++;
 }
 
 void Menu::enter() {
     entered(this);
+    if (itemCount > 0) {
+        items[0]->select();
+    }
 }
 
 void Menu::up() {
@@ -48,10 +50,6 @@ void Menu::down() {
 
 int Menu::size() {
     return sizeof(items);
-}
-
-MenuItem & Menu::getItem(int item) {
-    return *(items[item]);
 }
 
 MenuItem & Menu::selectedRow() {
@@ -91,12 +89,4 @@ void MenuItem::deSelect() {
 
 bool MenuItem::isSelected() {
     return selected;
-}
-
-void MenuItem::setRowNo(int r) {
-    row = r;
-}
-
-int MenuItem::getRowNo() {
-    return row;
 }

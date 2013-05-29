@@ -18,14 +18,48 @@ private:
     int row;
 public:
     typedef void (*SelectionChange)(MenuItem*);
+    
+    /**
+     * Constructs a new MenuItem object. The constructor takes two function pointers as
+     * arguments both of which must take a single argument of a MenuItem pointer.
+     *
+     * Example:
+     * @code
+     *  MenuItem *item = new MenuItem(&enterItem, &select, name);
+     * @end code
+     *
+     * @param EnterMenuItem - A pointer to a callback fuction called when the item is entered.
+     * @param SelectionChange - A pointer to a callback fuction called when the item is selected.
+     * @param name - The name of the MenuItem.
+     */
     MenuItem(EnterMenuItem, SelectionChange, char*);
+    
+    /**
+     * Gets the name of the item.
+     * @return A char array containing the item name.
+     */
     char* getName();
+    
+    /**
+     * Enters this instance of MenuItem and ultimatley calls the entered callback function.
+     */
     virtual void enter();
+    
+    /**
+     * Determines wheter tgis instance is selected.
+     * @return true if selected.
+     */
     bool isSelected();
+    
+    /**
+     * Selects this instance of MenuItem in its containing Menu and called the selected call back function.
+     */
     void select();
+    
+    /**
+     * De-selectes this instance - this is called internally by Menu DO NOT CALL THIS.
+     */
     void deSelect();
-    int getRowNo();
-    void setRowNo(int);
 protected:
     char* name;
     void (*selection)(MenuItem*);
@@ -48,7 +82,6 @@ public:
     Menu(EnterMenu, SelectionChange, char*, int);
     Menu(char*, int);
     void addMenuItem(MenuItem&);
-    MenuItem & getItem(int);
     MenuItem & selectedRow();
     int size();
     virtual void enter();
