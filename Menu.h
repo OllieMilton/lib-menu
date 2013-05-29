@@ -1,8 +1,12 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "mbed.h"
-
+#include <string.h>
+/** MenuItem represents an entry in a menu. Each menu item is instantiated with
+ * two callbacks, one for selecting the item and one for entering the item.
+ * Methods are provided for determining whether the item is selected 
+ *
+ */
 class MenuItem {
 
 private:
@@ -19,12 +23,11 @@ public:
     bool isSelected();
     void select();
     void deSelect();
-    void setRowNo(int);
     int getRowNo();
+    void setRowNo(int);
 protected:
     char* name;
     void (*selection)(MenuItem*);
-    Serial *pc;
 };
 
 class Menu : public MenuItem {
