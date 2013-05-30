@@ -124,6 +124,7 @@ public:
      *  root.addMenuNode(*sub1);
      *  root.enter();
      * }
+     * @endcode
      *
      * @para MenuNode A reference to the MenuNode to add.
      */
