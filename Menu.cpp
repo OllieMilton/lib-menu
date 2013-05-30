@@ -6,57 +6,50 @@
  */
 #include "Menu.h"
 
-Menu::Menu(EnterMenu enterAction, SelectionChange selectionChangeAct, char* newName, int size) : MenuItem() {
+Menu::Menu(EnterMenu enterAction, SelectionChange selectionChangeAct, char* newName, int size) : MenuNode() {
     entered = enterAction;
     name = newName;
     selection = selectionChangeAct;
-    selectedItem = 0;
-    itemCount = 0;
-    items = new MenuItem*[size];
+    selectedNode = 0;
+    nodeCount = 0;
+    nodes = new MenuNode*[size];
 }
 
-Menu::Menu(char* newName, int size) {
-    selectedItem = 0;
-    itemCount = 0;
-    name = newName;
-    items = new MenuItem*[size];
-}
-
-void Menu::addMenuItem(MenuItem & item) {
-    items[itemCount] = &item;
-    itemCount++;
+void Menu::addMenuNode(MenuNode & node) {
+    nodes[nodeCount] = &node;
+    nodeCount++;
 }
 
 void Menu::enter() {
     entered(this);
-    if (itemCount > 0) {
-        items[0]->select();
+    if (nodeCount > 0) {
+        nodes[0]->select();
     }
 }
 
 void Menu::up() {
-    if (selectedItem > 0) {
-        (*(items[selectedItem])).deSelect();
-        (*(items[--selectedItem])).select();
+    if (selectedNode > 0) {
+        (*(nodes[selectedNode])).selected = false;
+        (*(nodes[--selectedNode])).select();
     }
 }
 
 void Menu::down() {
-    if (selectedItem < itemCount-1) {
-        (*(items[selectedItem])).deSelect();
-        (*(items[++selectedItem])).select();
+    if (selectedNode < nodeCount-1) {
+        (*(nodes[selectedNode])).selected = false;
+        (*(nodes[++selectedNode])).select();
     }
 }
 
 int Menu::size() {
-    return sizeof(items);
+    return sizeof(nodes);
 }
 
-MenuItem & Menu::selectedRow() {
-    return *(items[selectedItem]);
+MenuNode & Menu::getSelectedNode() {
+    return *(nodes[selectedNode]);
 }
 
-MenuItem::MenuItem(EnterMenuItem enterAction, SelectionChange selectionChangeAct, char* newname) {
+MenuNode::MenuNode(EnterMenuNode enterAction, SelectionChange selectionChangeAct, char* newname) {
     name = new char[12];
     strcpy(name, newname);
     entered = enterAction;
@@ -65,28 +58,28 @@ MenuItem::MenuItem(EnterMenuItem enterAction, SelectionChange selectionChangeAct
     row = 0;
 }
 
-MenuItem::MenuItem() {
+MenuNode::MenuNode() {
     selected = false;
     row = 0;
 }
 
-void MenuItem::enter() {
+void MenuNode::enter() {
     entered(this);
 }
 
-char* MenuItem::getName() {
+char* MenuNode::getName() {
     return name;
 }
 
-void MenuItem::select() {
+void MenuNode::select() {
     selected = true;
     selection(this);
 }
-
-void MenuItem::deSelect() {
+/*
+void MenuNode::deSelect() {
     selected = false;
 }
-
-bool MenuItem::isSelected() {
+*/
+bool MenuNode::isSelected() {
     return selected;
 }
