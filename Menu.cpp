@@ -15,6 +15,13 @@ Menu::Menu(EnterMenu enterAction, SelectionChange selectionChangeAct, char* newN
     nodes = new MenuNode*[size];
 }
 
+Menu::~Menu() {
+    for (int i=0; i < sizeof(nodes); i++) {
+        delete nodes[i];
+    }
+    delete nodes;
+}
+
 void Menu::addMenuNode(MenuNode & node) {
     nodes[nodeCount] = &node;
     nodeCount++;
@@ -75,11 +82,7 @@ void MenuNode::select() {
     selected = true;
     selection(this);
 }
-/*
-void MenuNode::deSelect() {
-    selected = false;
-}
-*/
+
 bool MenuNode::isSelected() {
     return selected;
 }

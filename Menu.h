@@ -109,6 +109,9 @@ public:
      */
     Menu(EnterMenu, SelectionChange, char*, int);
     
+    /** Clears down all contained MenuNodes*/
+    ~Menu();
+    
     /** Adds the given node to the Menu. MenuNodes are ordered by the order in which they are added.
      * Note that a Menu is also a MenuNode meaning that a menu can bee added as a MenuNode to create a sub Menu.
      *
