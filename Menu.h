@@ -75,7 +75,7 @@ protected:
 };
 
 /** Menu represents a container for a set of MenuNodes. Menu is itself
- * a menu node meaning that Menu objects can be used as sun menus. 
+ * a menu node meaning that Menu objects can be used as sub menus. 
  */
 class Menu : public MenuNode {
 
